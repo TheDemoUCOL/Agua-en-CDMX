@@ -60,7 +60,7 @@ st.markdown("""
 # HTML personalizado para el encabezado
 st.markdown("""
     <div class="header">
-        <img src="data:image/png;base64,{}" class="logo">
+        <img src="data:image/png;base64,{}" class="logo" style="height: 75px;">
         <div class="title">Reportes de falta de agua en CDMX</div>
         <div class="nav">
             <a href="#mapa-de-reportes-de-falta-de-agua-en-cdmx">Mapa</a>
@@ -71,11 +71,17 @@ st.markdown("""
     </div>
 """.format(base64.b64encode(open("logo_udc.png", "rb").read()).decode()), unsafe_allow_html=True)
 mapa = """ 
-El primer paso para entender este problema es visualizar la distribución de los reportes de falta de agua en la Ciudad de México. Para ello se analizaron los datos de la SACMEX sobre todos los reportes recibidos en 2021
+El primer paso para entender este problema es visualizar la distribución de los reportes de falta de agua en la Ciudad de México. Para ello se analizaron los datos proporcionados por el [gobierno mexiquense] sobre todos los reportes recibidos en 2021
+
+[gobierno mexiquense]: https://datos.cdmx.gob.mx/dataset/reportes-de-agua
 """
 
+
 description = """ 
-La falta de agua en la Ciudad de México es un problema recurrente que afecta a miles de personas cada año. Y no es noticia nueva que esto este sucediendo, a pesar de que solo recientemente ha salido a la luz este dilema. Según datos de SACMEX (Sistema de Aguas de la Ciudad de México), en 2021 se registraron más de 10,000 reportes de falta de agua en la Ciudad de México. Nosotros somos Alejandro Paredes, Paola Robles, Rubén Reyna y Rubén Silva un equipo de amigos y compañeros que nos enfocamos en el análisis de datos para poder entender mejor este problema y poder proponer soluciones."""
+La falta de agua en la Ciudad de México es un problema recurrente que afecta a miles de personas cada año. Y no es noticia nueva que esto este sucediendo, a pesar de que solo recientemente ha salido a la luz este dilema. Según datos de [SACMEX] (Sistema de Aguas de la Ciudad de México), en 2021 se registraron más de 10,000 reportes de falta de agua en la Ciudad de México. Nosotros somos Alejandro Paredes, Paola Robles, Rubén Reyna y Rubén Silva un equipo de amigos y compañeros que nos enfocamos en el análisis de datos para poder entender mejor este problema y poder proponer soluciones.
+
+[SACMEX]: https://www.gob.mx/imta/articulos/vulnerabilidad-del-cutzamala?idiom=es
+"""
 
 # Título y descripción de la aplicación
 st.title('La falta de agua en la Ciudad de México en 2021')
