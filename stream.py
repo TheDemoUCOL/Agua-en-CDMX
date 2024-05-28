@@ -8,6 +8,8 @@ import plotly.graph_objects as go
 import geopandas as gpd # Para manejo de datos geoespaciales 
 import plotly.express as px
 
+
+
 reportes_df = pd.read_csv('reportes_agua_hist.csv')
 colonias_gdf = gpd.read_file('colonias_conteo.geojson')
 
@@ -20,19 +22,68 @@ reportes_2021 = reportes_df[reportes_df['fecha'].dt.year == 2021]
 reportes_2021 = reportes_2021.dropna()
 
 
-# Título y descripción de la aplicación
-st.title('Reportes de falta de agua en CDMX')
+# CSS personalizado
 st.markdown("""
-En esta investigacion se analizan los reportes de falta de agua en la Ciudad de México durante el año 2021. Los datos se obtuvieron de la plataforma de Datos Abiertos de la Ciudad de México y se utilizaron técnicas de visualización de datos para explorar y analizar los reportes de falta de agua en la Ciudad de México. A continuación, se presentan los hallazgos y visualizaciones más relevantes de la investigación.
-""")
+    <style>
+    .header {
+        position: fixed;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 2px solid #e9ecef;
+        background-color: rgb(14, 17, 23);
+        z-index: 1000;    }
+    .header img {
+        height: 50px;
+    }
+    .header .title {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .nav {
+        display: flex;
+        gap: 15px;
+    }
+    .nav a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+    
+    </style>
+""", unsafe_allow_html=True)
+
+# HTML personalizado para el encabezado
+st.markdown("""
+    <div class="header">
+        <img src="data:image/png;base64,{}" class="logo">
+        <div class="title">Reportes de falta de agua en CDMX</div>
+        <div class="nav">
+            <a href="#mapa-de-reportes-de-falta-de-agua-en-cdmx">Mapa</a>
+            <a href="#d7139f63">Alcaldías</a>
+            <a href="#dd0c9ac6">Colonias</a>
+            <a href="#analisis">Análisis</a>
+        </div>
+    </div>
+""".format(base64.b64encode(open("logo_udc.png", "rb").read()).decode()), unsafe_allow_html=True)
+mapa = """ 
+El primer paso para entender este problema es visualizar la distribución de los reportes de falta de agua en la Ciudad de México. Para ello se analizaron los datos de la SACMEX sobre todos los reportes recibidos en 2021
+"""
+
+description = """ 
+La falta de agua en la Ciudad de México es un problema recurrente que afecta a miles de personas cada año. Y no es noticia nueva que esto este sucediendo, a pesar de que solo recientemente ha salido a la luz este dilema. Según datos de SACMEX (Sistema de Aguas de la Ciudad de México), en 2021 se registraron más de 10,000 reportes de falta de agua en la Ciudad de México. Nosotros somos Alejandro Paredes, Paola Robles, Rubén Reyna y Rubén Silva un equipo de amigos y compañeros que nos enfocamos en el análisis de datos para poder entender mejor este problema y poder proponer soluciones."""
+
+# Título y descripción de la aplicación
+st.title('La falta de agua en la Ciudad de México en 2021')
+st.markdown(description)
 
 # Mostrar el mapa
 st.markdown('## Mapa de reportes de falta de agua en CDMX')
-st.markdown("""
-En este mapa puedes visualizar los reportes de falta de agua registrados en la Ciudad de México durante el año 2021.
-El mapa te permite seleccionar las capas de datos que deseas visualizar para obtener una mejor comprensión de la distribución
-de los reportes.
-""")
+st.markdown(mapa)
 
 # Asegúrate de que la ruta del archivo HTML es correcta
 with open('mapa.html', 'r', encoding='utf-8') as f:
