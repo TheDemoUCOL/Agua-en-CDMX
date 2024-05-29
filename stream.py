@@ -36,40 +36,78 @@ st.markdown("""
         padding: 10px;
         border-bottom: 2px solid #e9ecef;
         background-color: rgb(14, 17, 23);
-        z-index: 1000;    }
+        z-index: 1000;
+    }
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
     .header img {
         height: 50px;
     }
     .header .title {
         font-size: 24px;
         font-weight: bold;
+        color: white;
     }
     .nav {
         display: flex;
         gap: 15px;
+        color: white;
     }
     .nav a {
         text-decoration: none;
         color: white;
         font-weight: bold;
     }
-    
+    .footer {
+        width: 900px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-top: 2px solid #e9ecef;
+        background-color: rgb(14, 17, 23);
+        color: #bbbbbb;
+        margin-top: 20px;
+    }
+    .footer div referencias {
+        width: 300px;
+            
+    }
+    .footer p {
+        margin: 5px 0;
+    }
+    .footer a {
+        color: #bbbbbb;
+        text-decoration: none;
+    }
     </style>
 """, unsafe_allow_html=True)
 
 # HTML personalizado para el encabezado
 st.markdown("""
     <div class="header">
-        <img src="data:image/png;base64,{}" class="logo" style="height: 75px;">
+        <div class="logo-container">
+            <img src="data:image/png;base64,{}" class="logo">        </div>
         <div class="title">Reportes de falta de agua en CDMX</div>
         <div class="nav">
             <a href="#mapa-de-reportes-de-falta-de-agua-en-cdmx">Mapa</a>
             <a href="#d7139f63">Alcaldías</a>
             <a href="#dd0c9ac6">Colonias</a>
-            <a href="#analisis">Análisis</a>
+            <a href="#53ca301e">Resultados</a>
+        </div>
+        <div class="logo-container">
+            <img src="data:image/png;base64,{}" class="logo">
         </div>
     </div>
-""".format(base64.b64encode(open("logo_udc.png", "rb").read()).decode()), unsafe_allow_html=True)
+""".format(
+    base64.b64encode(open("logo_ici.png", "rb").read()).decode(),
+    base64.b64encode(open("logo_udc.png", "rb").read()).decode()
+), unsafe_allow_html=True)
+
+
 mapa = """ 
 El primer paso para entender este problema es visualizar la distribución de los reportes de falta de agua en la Ciudad de México. Para ello se analizaron los datos proporcionados por el [gobierno mexiquense] sobre todos los reportes recibidos en 2021
 
@@ -90,6 +128,8 @@ st.markdown(description)
 # Mostrar el mapa
 st.markdown('## Mapa de reportes de falta de agua en CDMX')
 st.markdown(mapa)
+
+
 
 # Asegúrate de que la ruta del archivo HTML es correcta
 with open('mapa.html', 'r', encoding='utf-8') as f:
@@ -136,8 +176,7 @@ if st.button('?', help='Haz clic para escuchar la explicación de la falta de ag
 st.markdown('## Reportes de falta de agua por alcaldía en 2021')
 st.markdown("""
 Esta sección muestra el número de reportes de falta de agua por cada alcaldía en la Ciudad de México durante el año 2021.
-Al hacer clic en una barra, se resaltará la alcaldía correspondiente para facilitar la visualización de los datos.
-""")
+Puedes explorar la gráfica para identificar las alcaldías con más reportes y compararlas con otras.""")
 # Gráfica de barras interactiva de reportes por alcaldía
 reportes_por_alcaldia = reportes_2021['alcaldia'].value_counts().reset_index()
 reportes_por_alcaldia.columns = ['Alcaldía', 'Número de reportes']
@@ -162,13 +201,13 @@ fig.update_layout(
 
 # Mostrar la gráfica en Streamlit
 st.plotly_chart(fig, width=1000, height=500)
-st.caption("Grafica 1: Cantidad de reportes  de falta de agua por alcaldia a lo largo del tiempo en 2021.")
+st.caption("Grafica 1: Cantidad de reportes por alcaldia de la ciudad de mexico.")
 
 # Mostrar la gráfica de barras de reportes por colonia
 st.markdown('## Reportes de falta de agua por colonia en Coyoacán en 2021')
 st.markdown("""
 En esta sección, puedes ver los reportes de falta de agua desglosados por colonia en la alcaldía de Coyoacán.
-Solo se muestran las colonias que tienen más de 100 reportes durante el año 2021.
+Solo se muestran las colonias que tienen más de 100 reportes durante el año 2021, ya que presentan mayores riesgos.
 """)
 alcaldia_seleccionada = 'Coyoacán'
 colonias_filtradas = colonias_gdf[colonias_gdf['alc'] == alcaldia_seleccionada]
@@ -211,6 +250,7 @@ Los datos están ordenados por fecha y puedes explorarlos para identificar patro
 
 # Lectura del archivo CSV
 df = pd.read_csv('reportes_colonia_fechas.csv')
+st.caption("Tabla 1: Reportes de falta de agua por colonia en Coyoacán en 2021.")
 
 # Mostrar la tabla
 st.dataframe(df, width=1000, height=500)
@@ -331,3 +371,30 @@ fig_viviendas.update_layout(
 st.plotly_chart(fig_viviendas)
 st.caption("Grafica 5: Características de las viviendas en la alcaldía de Coyoacán.")
 
+
+
+################### pie de pagina ####################
+# HTML personalizado para el pie de página
+# Agregar el pie de página
+st.markdown("""
+    <div class="footer">
+        <div>
+            <p>Hecho por:</p>
+            <ul>
+                <li>Alejandro Paredes</li>
+                <li>Paola Robles</li>
+                <li>Rubén Reyna</li>
+                <li>Rubén Silva</li>
+            </ul>
+        </div>
+        <div class= "referencias">
+            <p>Referencias:</p>
+            <ul>
+                <li>SACMEX. (2024, marzo). Reportes de agua SACMEX. Recuperado 13 de mayo de 2024, de https://datos.cdmx.gob.mx/dataset/groups/reportes-de-agua </li>
+                <li>Gaceta UNAM. (2021, 18 marzo). México experimenta escasez de agua y falta de equidad en su distribución - Gaceta UNAM. https://www.gaceta.unam.mx/mexico-experimenta-escasez-de-agua-y-falta-de-equidad-en-su-distribucion/#:~:text=De%20acuerdo%20con%20datos%20de,los%20d%C3%ADas%20y%2018%20por </li>
+                <li> INEGI (Ed.). (2022, 17 marzo). Viviendas que no disponen de drenaje. Recuperado 10 de mayo de 2024, de https://datos.cdmx.gob.mx/dataset/viviendas-que-no-disponen-de-drenaje </li>
+                <li>Sistema de aguas de la ciudad de México (Ed.). (2023). Sistema de aguas en la Ciudad de México. Agua En Tu Colonia. Recuperado 13 de mayo de 2024, de https://aguaentucolonia.sacmex.cdmx.gob.mx/#/search/1268 </li>
+            </ul>
+        </div>
+    </div>
+""", unsafe_allow_html=True)
