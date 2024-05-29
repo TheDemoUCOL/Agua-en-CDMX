@@ -109,7 +109,7 @@ st.markdown("""
 
 
 mapa = """ 
-El primer paso para entender este problema es visualizar la distribución de los reportes de falta de agua en la Ciudad de México. Para ello se analizaron los datos proporcionados por el [gobierno mexiquense] sobre todos los reportes recibidos en 2021
+El primer paso para entender este problema es visualizar la distribución de los reportes de falta de agua en la Ciudad de México. Para ello se analizaron los datos proporcionados por el [gobierno mexiquense] sobre todos los reportes recibidos en 2021, estos nos darán una idea de las zonas más afectadas por la falta de agua en la Ciudad de México y concentrar nuestros esfuerzos en esas áreas.
 
 [gobierno mexiquense]: https://datos.cdmx.gob.mx/dataset/reportes-de-agua
 """
@@ -175,8 +175,7 @@ if st.button('?', help='Haz clic para escuchar la explicación de la falta de ag
 # Mostrar la gráfica de barras de reportes por alcaldía
 st.markdown('## Reportes de falta de agua por alcaldía en 2021')
 st.markdown("""
-Esta sección muestra el número de reportes de falta de agua por cada alcaldía en la Ciudad de México durante el año 2021.
-Puedes explorar la gráfica para identificar las alcaldías con más reportes y compararlas con otras.""")
+El mapa refleja una distribución de los reportes de falta de agua en la Ciudad de México, donde más reportes podemos encontrar es en la alcaldía Coyoacán, seguido de Talpan y Gustavo A. Madero. Vamos a profundizar en los reportes de falta de agua en la alcaldía Coyoacán para entender mejor la situación en esa zona.""")
 # Gráfica de barras interactiva de reportes por alcaldía
 reportes_por_alcaldia = reportes_2021['alcaldia'].value_counts().reset_index()
 reportes_por_alcaldia.columns = ['Alcaldía', 'Número de reportes']
@@ -206,8 +205,7 @@ st.caption("Grafica 1: Cantidad de reportes por alcaldia de la ciudad de mexico.
 # Mostrar la gráfica de barras de reportes por colonia
 st.markdown('## Reportes de falta de agua por colonia en Coyoacán en 2021')
 st.markdown("""
-En esta sección, puedes ver los reportes de falta de agua desglosados por colonia en la alcaldía de Coyoacán.
-Solo se muestran las colonias que tienen más de 100 reportes durante el año 2021, ya que presentan mayores riesgos.
+Dentro de la alcaldía Coyoacán, la colonia con más reportes de falta de agua es Pedregal de santo Domingo, es supera por poco menos del doble de reportes a la colonia Ajusco, lo que indica un serio problema en esa colonia. Un dato a tomar en cuenta es que la colonia Pedregal se encuentra justo a un lado de ciudad universitaria, lo que podría indicar que la falta de agua en la colonia es un problema que afecta a la universidad. Vamos a profundizar en los reportes de falta de agua en la colonia Pedregal de Santo Domingo explorando las características de las viviendas en esa colonia.
 """)
 alcaldia_seleccionada = 'Coyoacán'
 colonias_filtradas = colonias_gdf[colonias_gdf['alc'] == alcaldia_seleccionada]
@@ -244,8 +242,9 @@ st.caption(f"Grafica 2: Reportes de fallas en el suministro de agua por colonia 
 # Título y descripción
 st.markdown('## Reportes de falta de agua por colonia en Coyoacán en 2021')
 st.markdown("""
-Esta tabla muestra el número de reportes de falta de agua por colonia en la alcaldía de Coyoacán durante el año 2021.
-Los datos están ordenados por fecha y puedes explorarlos para identificar patrones o tendencias en los reportes.
+La tabla 1 representa la distribución de los reoprtes de agua que posteriormente podemos ver en la gráfica 3, en la cual podemos observar una caída en los reportes en el mes de julio, justo como indica [Conagua] en su reporte de precipitaciones para el año 2021, Julio fue un mes con bastante precipitación, lo interesante viene después de este mes.
+
+[Conagua]: https://smn.conagua.gob.mx/tools/DATA/Climatolog%C3%ADa/Pron%C3%B3stico%20clim%C3%A1tico/Temperatura%20y%20Lluvia/PREC/2021.pdf 
 """)
 
 # Lectura del archivo CSV
@@ -260,8 +259,7 @@ st.dataframe(df, width=1000, height=500)
 # Mostrar la línea de tiempo de reportes
 st.markdown('## Línea de tiempo de reportes de falta de agua en CDMX en 2021')
 st.markdown("""
-Esta línea de tiempo muestra la evolución de los reportes de falta de agua en la Ciudad de México a lo largo del año 2021.
-Puedes interactuar con la gráfica para ver los detalles de los reportes en cada mes.
+La linea de tiempo nuestra esta caída repentina que hubo en el mes de junio y es interesante observar que después de este mes los reportes vuelven a subir, esto podría indicar que los pozos donde se abastece la Ciudad de México no están siendo suficientes para abastecer a la ciudad, lo que podría ser un problema a largo plazo.
 """)
 
 # Supongo que tienes los datos en un DataFrame llamado reportes_2021
@@ -326,6 +324,10 @@ st.caption("Grafica 4: Cantidad de reportes de falta de agua por día de la sema
 #abrir el archivo
 
 st.markdown('## Caracteristicas de las viviendas en colonias con mas reportes de falta de agua')
+st.markdown("""La mayoría de la población de la colonia Pedregal tiene preparación para recibir agua entubada, sin embargo, no todos cuentan con un lugar donde almacenar el agua, dependiendo unicamente del abastececimiento de agua entubada. Una solución a este problema podría ser la instalación de tinacos o cisternas para almacenar agua y evitar la falta de agua en la colonia, promover el cuidado de este líquido vital y evitar las fugas por lo menos en lo que respecta a nuestros domicilios, pues el sistema de agua en la Ciudad de México es un problema que se debe atacar desde la raíz, y no solo con soluciones temporales. El sistema [cutzamala] que abastece a la Ciudad de México, es un sistema que se encuentra en peligro de desaparecer, por lo que es importante que se tomen medidas para evitar que esto suceda.
+            
+[cutzamala]: https://www.gob.mx/imta/articulos/vulnerabilidad-del-cutzamala?idiom=es
+            """)
 
 
 # Lectura del archivo CSV
@@ -377,24 +379,17 @@ st.caption("Grafica 5: Características de las viviendas en la alcaldía de Coyo
 # HTML personalizado para el pie de página
 # Agregar el pie de página
 st.markdown("""
-    <div class="footer">
-        <div>
-            <p>Hecho por:</p>
-            <ul>
-                <li>Alejandro Paredes</li>
-                <li>Paola Robles</li>
-                <li>Rubén Reyna</li>
-                <li>Rubén Silva</li>
-            </ul>
-        </div>
-        <div class= "referencias">
-            <p>Referencias:</p>
-            <ul>
-                <li>SACMEX. (2024, marzo). Reportes de agua SACMEX. Recuperado 13 de mayo de 2024, de https://datos.cdmx.gob.mx/dataset/groups/reportes-de-agua </li>
-                <li>Gaceta UNAM. (2021, 18 marzo). México experimenta escasez de agua y falta de equidad en su distribución - Gaceta UNAM. https://www.gaceta.unam.mx/mexico-experimenta-escasez-de-agua-y-falta-de-equidad-en-su-distribucion/#:~:text=De%20acuerdo%20con%20datos%20de,los%20d%C3%ADas%20y%2018%20por </li>
-                <li> INEGI (Ed.). (2022, 17 marzo). Viviendas que no disponen de drenaje. Recuperado 10 de mayo de 2024, de https://datos.cdmx.gob.mx/dataset/viviendas-que-no-disponen-de-drenaje </li>
-                <li>Sistema de aguas de la ciudad de México (Ed.). (2023). Sistema de aguas en la Ciudad de México. Agua En Tu Colonia. Recuperado 13 de mayo de 2024, de https://aguaentucolonia.sacmex.cdmx.gob.mx/#/search/1268 </li>
-            </ul>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+   
+   ## Hecho por:
+   - Roberto Alejandro Hernandez Paredes
+   - Paola Berenice Robles Becerra
+   - Rubén Reyna Alonso
+   - Rubén Abraham Silva Vazquez
+   
+   ## Referencias
+   - SACMEX. (2024, marzo). Reportes de agua SACMEX. Recuperado 13 de mayo de 2024, de https://datos.cdmx.gob.mx/dataset/groups/reportes-de-agua
+   - Gaceta UNAM. (2021, 18 marzo). México experimenta escasez de agua y falta de equidad en su distribución - Gaceta UNAM. https://www.gaceta.unam.mx/mexico-experimenta-escasez-de-agua-y-falta-de-equidad-en-su-distribucion/#:~:text=De%20acuerdo%20con%20datos%20de,los%20d%C3%ADas%20y%2018%20por
+   - INEGI (Ed.). (2022, 17 marzo). Viviendas que no disponen de drenaje. Recuperado 10 de mayo de 2024, de https://datos.cdmx.gob.mx/dataset/viviendas-que-no-disponen-de-drenaje
+   - Sistema de aguas de la ciudad de México (Ed.). (2023). Sistema de aguas en la Ciudad de México. Agua En Tu Colonia. Recuperado 13 de mayo de 2024, de https://aguaentucolonia.sacmex.cdmx.gob.mx/#/search/1268         
+    
+""")
